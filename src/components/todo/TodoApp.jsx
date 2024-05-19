@@ -5,15 +5,19 @@ import "./TodoApp.css"
 export default function TodoApp(){
     return (
         <div className="TodoApp">
+            <HeaderComponent />
             <BrowserRouter>
             <Routes>
                 <Route path='/' element={<LoginComponent />} />
                 <Route path='/login' element={<LoginComponent />} />
                 <Route path='/welcome/:username' element={<WelcomeComponent />} />
-                <Route path='/*' element={<ErrorComponent />} />
                 <Route path='/todos' element={<ListTodosComponent />} />
+                <Route path='/logout' element={<LogoutComponent />} />
+
+                <Route path='/*' element={<ErrorComponent />} />
             </Routes>
             </BrowserRouter>
+            <FooterComponent />
         </div>
     )
 }
@@ -44,6 +48,7 @@ function LoginComponent(){
         } else {
             setShowSuccessMessage(false)
             setShowErrorMessage(true)
+            navigate('/logout')
             console.log('fail')
         }
     }
@@ -106,9 +111,9 @@ function ListTodosComponent(){
                 ]
 
     return(
-        <div className="ListTodoComponent">
+        <div className="container">
             <h1>Things you want to do!</h1>
-            <div>
+            <div className="table">
                 <table>
                     <thead>
                         <tr>
@@ -135,6 +140,32 @@ function ListTodosComponent(){
                     </tbody>
                 </table>
             </div>
+        </div>
+    )
+}
+
+function HeaderComponent(){
+    return(
+        <div className="Header">
+            Header <hr />
+        </div>
+    )
+}
+
+function FooterComponent(){
+    return(
+        <div className="Footer">
+            <hr/>
+            Footer
+        </div>
+    )
+}
+
+function LogoutComponent(){
+    return(
+        <div className="LogoutComponent">
+            <h1>You are logged out!</h1>
+            <div>Thank you for using our services.</div>
         </div>
     )
 }
