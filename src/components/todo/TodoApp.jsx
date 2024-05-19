@@ -10,6 +10,7 @@ export default function TodoApp(){
                 <Route path='/' element={<LoginComponent />}></Route>
                 <Route path='/login' element={<LoginComponent />}></Route>
                 <Route path='/welcome' element={<WelcomeComponent />}></Route>
+                <Route path='/*' element={<ErrorComponent />}></Route>
             </Routes>
             </BrowserRouter>
         </div>
@@ -38,6 +39,7 @@ function LoginComponent(){
             setShowSuccessMessage(true)
             navigate('/welcome')
             console.log('success')
+
         } else {
             setShowSuccessMessage(false)
             setShowErrorMessage(true)
@@ -47,6 +49,7 @@ function LoginComponent(){
 
     return(
         <div className="Login">
+            <h1>Login page</h1>
             {showErrorMessage && <div className="ErrorMessage">Authentication Failed. Please check your credentials</div>}
             {showSuccessMessage && <div className="SuccessMessage">Authenticated Successfully</div>}
         
@@ -67,12 +70,22 @@ function LoginComponent(){
     )
 }
 
-
-
 function WelcomeComponent(){
     return(
         <div className="Welcome">
+            <h1>Welcome</h1>
+            <div >
             Welcome Component
+            </div>
+        </div>
+    )
+}
+
+function ErrorComponent(){
+    return(
+        <div className="ErrorComponent">
+            <h1>We are working really hard!</h1>
+            <div>Apology for the 404. Reach out to our team at @teckiz.com</div>
         </div>
     )
 }
