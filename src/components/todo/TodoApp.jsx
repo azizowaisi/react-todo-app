@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { BrowserRouter, Route, Routes, useNavigate, useParams } from "react-router-dom"
+import { BrowserRouter, Route, Routes, useNavigate, useParams, Link } from "react-router-dom"
 import "./TodoApp.css"
 
 export default function TodoApp(){
@@ -7,10 +7,11 @@ export default function TodoApp(){
         <div className="TodoApp">
             <BrowserRouter>
             <Routes>
-                <Route path='/' element={<LoginComponent />}></Route>
-                <Route path='/login' element={<LoginComponent />}></Route>
-                <Route path='/welcome/:username' element={<WelcomeComponent />}></Route>
-                <Route path='/*' element={<ErrorComponent />}></Route>
+                <Route path='/' element={<LoginComponent />} />
+                <Route path='/login' element={<LoginComponent />} />
+                <Route path='/welcome/:username' element={<WelcomeComponent />} />
+                <Route path='/*' element={<ErrorComponent />} />
+                <Route path='/todos' element={<ListTodosComponent />} />
             </Routes>
             </BrowserRouter>
         </div>
@@ -73,13 +74,12 @@ function LoginComponent(){
 function WelcomeComponent(){
 
     let {username} = useParams()
-    console.log(username)
 
     return(
         <div className="Welcome">
             <h1>Welcome {username}</h1>
             <div >
-            Welcome Component
+                Your todos. <Link to="/todos">Go here</Link>
             </div>
         </div>
     )
@@ -90,6 +90,51 @@ function ErrorComponent(){
         <div className="ErrorComponent">
             <h1>We are working really hard!</h1>
             <div>Apology for the 404. Reach out to our team at @teckiz.com</div>
+        </div>
+    )
+}
+
+function ListTodosComponent(){
+
+    let today = new Date()
+    let targetDate = new Date(today.getFullYear()+12, today.getMonth(), today.getDay())
+    let todos =  [
+                    {id:1, description: 'Learn AWS Solution Architect', done:false, targetDate:targetDate},
+                    {id:2, description: 'Learn AWS Developer Associate', done:false, targetDate:targetDate},
+                    {id:3, description: 'Learn AWS System Administration', done:false, targetDate:targetDate}
+
+                ]
+
+    return(
+        <div className="ListTodoComponent">
+            <h1>Things you want to do!</h1>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>id</td>
+                            <td>description</td>
+                            <td>Done</td>
+                            <td>Target date</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            todos.map(
+                                todo => (
+                                            <tr key={todo.id}>
+                                                <td>{todo.id}</td>
+                                                <td>{todo.description}</td>
+                                                <td>{todo.done.toString()}</td>
+                                                <td>{todo.targetDate.toDateString()}</td>
+                                            </tr>
+                                )
+                            )
+                        }
+                        
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }
