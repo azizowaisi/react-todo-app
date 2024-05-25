@@ -13,12 +13,11 @@ function AuthProvider({children}) {
         if(username === "azizowaisi" && password === "dummy"){
             setAuthenticated(true)
             return true
-        } else {
+        } 
 
-            setAuthenticated(false)
-            return false
-        }
-
+        setAuthenticated(false)
+        
+        return false
     }
 
     function logout(){
@@ -26,7 +25,7 @@ function AuthProvider({children}) {
     }
 
     return (
-        <AuthContext.Provider value={{isAuthenticated, setAuthenticated, login, logout}}>
+        <AuthContext.Provider value={{isAuthenticated, login, logout}}>
             {children}
         </AuthContext.Provider>
     )
